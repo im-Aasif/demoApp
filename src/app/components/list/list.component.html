@@ -1,0 +1,16 @@
+
+<img [src]="srcpath" height="120px" >
+<h3>
+  {{ title }}
+</h3>
+<ul>
+  <li *ngFor="let item of listItems" appBold>
+    {{ item }}
+  </li>
+</ul>
+<hr />
+<button class="btn btn-default" (click) = "onClick()">Click</button>
+<br><br>
+<input type="text" [(ngModel)] = "mText"/>
+<br><br>    
+<p>{{ mText }}</p>

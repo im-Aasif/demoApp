@@ -4,8 +4,9 @@
     <div class="panel-heading">{{ hero.alias | uppercase }}</div>
     <div class="panel-body">
       <p>Id: {{ hero.id }}</p>
-      <p>Alias: {{ hero.alias }}</p>
-      <p>Name: {{ hero.name }}</p>
+      <p>Alias: <input type="text" [(ngModel)] = "hero.alias"/></p>
+      <p>Name: <input type="text" [(ngModel)] = "hero.name"></p>
+      <button class="clear" (click)="save()">Save</button>
     </div>
   </div>
 </div>

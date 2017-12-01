@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Hero } from '../../models/hero';
 import { HEROES } from '../../models/mock-heroes';
 import { HeroService } from '../../services/hero.service';
-
+import { BoldDirective } from '../../directives/bold/bold.directive';
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
@@ -11,14 +11,32 @@ import { HeroService } from '../../services/hero.service';
 export class HeroesComponent implements OnInit {
 
   heroes: Hero[];
-  constructor(private heroService: HeroService) { }
+  constructor(
+    private heroService: HeroService
+  ) { }
 
   getHeroes(): void {
     this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes);
   }
-  
+
   ngOnInit() {
     this.getHeroes();
   }
 
+  add(hId: string, hName: string, hAlias: string): void {
+    if (!hId && !hName && !hAlias) { return; }
+    var hero: Hero = {
+      id: +hId,
+      name: hName,
+      alias: hAlias
+    }
+    this.heroService.addHero(hero).subscribe(hero => {
+      this.heroes.push(hero);
+    });
+  }
+
+  delete(hero: Hero): void {
+    this.heroes = this.heroes.filter(h => h !== hero);
+    this.heroService.deleteHero(hero).subscribe();
+  }
 }

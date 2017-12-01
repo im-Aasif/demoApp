@@ -6,26 +6,35 @@ import { CommonModule } from '@angular/common';
 
 
 import { AppComponent } from './app.component';
-import { ListComponent } from './components/list/list.component';
-import { MovieslistService } from './services/movieslist/movieslist.service';
 import { BoldDirective } from './directives/bold/bold.directive';
-import { NavbarComponent } from './components/navbar/navbar/navbar.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { HeroesComponent } from './components/heroes/heroes.component';
+import { HeroDetailComponent } from './components/hero-detail/hero-detail.component';
+import { HeroService } from './services/hero.service';
+import { MessageService } from './services/message.service';
+import { MessagesComponent } from './components/messages/messages.component';
+import { AppRoutingModule } from './/app-routing.module';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ListComponent,
     BoldDirective,
-    NavbarComponent    
+    NavbarComponent,
+    HeroesComponent,
+    HeroDetailComponent,
+    MessagesComponent,
+    DashboardComponent    
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    CommonModule
+    CommonModule,
+    AppRoutingModule
   ],
-  providers: [ MovieslistService ],
+  providers: [ HeroService, MessageService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

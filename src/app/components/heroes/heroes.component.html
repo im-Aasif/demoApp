@@ -1,0 +1,7 @@
+<h2>My Heroes</h2>
+<div class="list-group">
+  <a href="#" class="list-group-item" *ngFor="let hero of heroes" routerLink="/detail/{{ hero.id }}">
+    <h4 class="list-group-item-heading"><b>{{ hero.alias }}</b></h4>
+    <h5 class="list-group-item-text">{{ hero.name }}</h5>
+  </a>
+</div>

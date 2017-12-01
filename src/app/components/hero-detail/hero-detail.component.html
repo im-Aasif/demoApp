@@ -1,0 +1,11 @@
+<button class="clear" (click)="goBack()">Back</button>
+<div *ngIf="hero"><br>
+  <div class="panel panel-default">
+    <div class="panel-heading">{{ hero.alias | uppercase }}</div>
+    <div class="panel-body">
+      <p>Id: {{ hero.id }}</p>
+      <p>Alias: {{ hero.alias }}</p>
+      <p>Name: {{ hero.name }}</p>
+    </div>
+  </div>
+</div>

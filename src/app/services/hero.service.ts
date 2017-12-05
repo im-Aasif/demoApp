@@ -9,7 +9,6 @@ import { Hero } from '../models/hero';
 import { MessageService } from './message.service';
 
 
-
 @Injectable()
 export class HeroService {
   httpOptions = {
@@ -33,7 +32,12 @@ export class HeroService {
     );
   }
 
-  getHero(id: number) {
+  /**
+   * GET hero by id.
+   * @param id: id of hero
+   * Will return 404 if not found
+   */
+  getHero(id: number): Observable<Hero> {
     const newUrl = `${this.heroesUrl}/${id}`
     return this.http.get<Hero>(newUrl).pipe(
       tap(_ => this.log(`fetched hero with id: ${id}`)),
@@ -42,12 +46,26 @@ export class HeroService {
   }
 
   updateHero(hero: Hero): Observable<any> {
-
     return this.http.put(this.heroesUrl, hero, this.httpOptions).pipe(
-      tap(_ => this.log(`fetched hero with id: ${hero.id}`)),
+      tap(_ => this.log(`updated hero with id: ${hero.id}`)),
       catchError(this.handleError<Hero>(`getHero with id: ${hero.id}`))
-
     )
+  }
+
+  /**
+   * GET heroes whose name contains search term
+   */
+
+  searchHeroes(term: string): Observable<Hero[]> {
+    if (! term.trim()) {
+      // if not search term, return empty hero array
+      return of([]);
+    }
+
+    return this.http.get<Hero[]>(`api/heroes/?alias=${term}`).pipe(
+      tap(_ => this.log(`found heroes matching "${term}"`)),
+      catchError(this.handleError<Hero[]>('searchHeroes', []))
+    );
   }
 
   /** POST: add a new hero to the server */
@@ -58,6 +76,7 @@ export class HeroService {
     );
   }
 
+  
   deleteHero(hero: Hero | number): Observable<Hero> {
     const id = typeof hero === 'number' ? hero : hero.id;
     const url = `${this.heroesUrl}/${id}`;
@@ -69,13 +88,10 @@ export class HeroService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
-
       // TODO: better job of transforming error for user consumption
       this.log(`${operation} failed: ${error.message}`);
-
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
@@ -88,4 +104,5 @@ export class HeroService {
       catchError(this.handleError('getRandom', []))
     );
   }
+
 }

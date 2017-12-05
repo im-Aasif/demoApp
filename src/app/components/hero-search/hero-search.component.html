@@ -1,3 +1,14 @@
-<p>
-  hero-search works!
-</p>
+<div>
+  <h3>Hero Search</h3>
+<!-- 
+  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" /> -->
+  <input class="form-control" type="text" placeholder="Enter hero you want to search" #searchBox (keyup)="search(searchBox.value)">
+  
+  <ul class="search-result">
+    <li *ngFor="let hero of heroes$ | async" class="form-control">
+      <a routerLink="/detail/{{hero.id}}">
+        {{hero.alias}}
+      </a>
+    </li>
+  </ul>
+</div>

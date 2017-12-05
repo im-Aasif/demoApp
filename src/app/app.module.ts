@@ -18,6 +18,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { InMemoryDataService } from './services/in-memory-data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HeroSearchComponent } from './components/hero-search/hero-search.component';
+import { PostsComponent } from './components/posts/posts.component';
+import { PostService } from './services/post.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { HeroSearchComponent } from './components/hero-search/hero-search.compon
     HeroDetailComponent,
     MessagesComponent,
     DashboardComponent,
-    HeroSearchComponent    
+    HeroSearchComponent,
+    PostsComponent    
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,7 @@ import { HeroSearchComponent } from './components/hero-search/hero-search.compon
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })    
   ],
-  providers: [ HeroService, MessageService ],
+  providers: [ HeroService, MessageService, PostService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
